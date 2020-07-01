@@ -28,7 +28,6 @@ async function addAnnotation (poiId, type, data) {
     const poiRef = getPoiRef(poiId)
 
     const annotationRef = await poiRef.collection('annotations').doc().set({
-      // city: 'amsterdam',
       poiId,
       dateCreated: new Date(),
       dateUpdated: new Date(),
