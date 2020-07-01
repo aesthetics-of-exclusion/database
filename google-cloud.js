@@ -2,7 +2,7 @@ const { Firestore } = require('@google-cloud/firestore')
 const { Storage } = require('@google-cloud/storage')
 
 const PROJECT_ID = 'streetswipe-aoe'
-const SERVICE_KEY = process.env.SERVICE_KEY || '~/.google-cloud/streetswipe-aoe-5627f5cc075a.json'
+const SERVICE_KEY = process.env.SERVICE_KEY || '/Users/bert/.google-cloud/streetswipe-aoe-5627f5cc075a.json'
 const STORAGE_BUCKET = 'aesthetics-of-exclusion'
 
 const storage = new Storage({
@@ -16,6 +16,10 @@ const db = new Firestore({
   keyFilename: SERVICE_KEY,
   projectId: PROJECT_ID
 })
+
+function random () {
+  return Math.round(Math.random() * Number.MAX_SAFE_INTEGER)
+}
 
 const getPoiRef = (poiId) => db.collection('pois').doc(poiId)
 
@@ -60,10 +64,6 @@ async function deleteAnnotations (poiId, type) {
   return new Promise((resolve, reject) => {
     deleteAnnotationsBatch(annotationsRef, resolve, reject)
   })
-}
-
-function random () {
-  return Math.round(Math.random() * Number.MAX_SAFE_INTEGER)
 }
 
 function deleteAnnotationsBatch (query, resolve, reject) {
